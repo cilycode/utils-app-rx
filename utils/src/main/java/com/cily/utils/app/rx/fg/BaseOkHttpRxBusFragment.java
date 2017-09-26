@@ -1,0 +1,174 @@
+package com.cily.utils.app.rx.fg;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+
+import com.cily.utils.app.event.Event;
+import com.cily.utils.app.rx.FragmentRxEvent;
+import com.cily.utils.app.rx.RxBus;
+import com.cily.utils.log.L;
+
+import rx.Subscription;
+import rx.functions.Action1;
+
+/**
+ * user:cily
+ * time:2017/2/20
+ * desc: okhttp + retrofit + rxjava + rxbus
+ */
+
+public class BaseOkHttpRxBusFragment extends BaseOkHttpFragment {
+    private Subscription mSubscription;
+    private boolean resetEvent = true;
+    private int unSub = FragmentRxEvent.DESTROY;
+
+    private void initRxBus(){
+        if (mSubscription == null) {
+            mSubscription = RxBus.getInstance()
+                    .toObservable(Event.class)
+                    .subscribe(new Action1<Event>() {
+                        @Override
+                        public void call(Event event) {
+                            if (event == null){
+                                return;
+                            }
+
+                            if (event.what == Event.APP_EXIT){
+                                System.exit(0);
+                                return;
+                            }
+
+                            doRxbus(event);
+
+                            if (isResetEvent()){
+                                event.recycle();
+                            }
+                        }
+                    });
+        }
+    }
+
+    protected void doRxbus(Event e){
+
+    }
+
+    private void unSubscription(){
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
+        }
+        mSubscription = null;
+    }
+
+    protected boolean isResetEvent() {
+        return resetEvent;
+    }
+
+    protected void setResetEvent(boolean reset) {
+        this.resetEvent = reset;
+    }
+
+    protected int getUnSub() {
+        return unSub;
+    }
+
+    protected void setUnSub(@FragmentRxEvent.Rx int unSub) {
+        this.unSub = unSub;
+    }
+
+    @Override
+    public void onAttach(android.app.Activity activity) {
+        super.onAttach(activity);
+        L.v(TAG, "<--->onAttach");
+        initRxBus();
+
+        if (getUnSub() == FragmentRxEvent.ATTACH){
+            unSubscription();
+        }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        L.v(TAG, "<--->onCreate");
+        if (getUnSub() == FragmentRxEvent.CREATE){
+            unSubscription();
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        L.v(TAG, "<--->onViewCreated");
+        if (getUnSub() == FragmentRxEvent.CREATE_VIEW){
+            unSubscription();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        L.v(TAG, "<--->onStart");
+        if (getUnSub() == FragmentRxEvent.START){
+            unSubscription();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        L.v(TAG, "<--->onResume");
+        if (getUnSub() == FragmentRxEvent.RESUME){
+            unSubscription();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        L.i(TAG, "<--->onPause");
+        if (getUnSub() == FragmentRxEvent.PAUSE){
+            unSubscription();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        L.v(TAG, "<--->onStop");
+        if (getUnSub() == FragmentRxEvent.STOP){
+            unSubscription();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        L.v(TAG, "<--->onDestroyView");
+
+        if (getUnSub() == FragmentRxEvent.DESTROY_VIEW){
+            unSubscription();
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        L.v(TAG, "<--->onDestroy");
+
+        if (getUnSub() == FragmentRxEvent.DESTROY){
+            unSubscription();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        L.v(TAG, "<--->onDetach");
+
+        if (getUnSub() == FragmentRxEvent.DETACH){
+            unSubscription();
+        }
+    }
+}
