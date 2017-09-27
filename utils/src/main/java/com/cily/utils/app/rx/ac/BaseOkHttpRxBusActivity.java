@@ -19,7 +19,7 @@ import rx.functions.Action1;
 public class BaseOkHttpRxBusActivity extends BaseOkHttpActivity {
 
     private Subscription mSubscription;
-    private boolean resetEvent = true;
+    private boolean resetEvent = false;
 
     private int unSub = ActivityRxEvent.DESTROY;
 

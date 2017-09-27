@@ -19,7 +19,7 @@ import rx.functions.Action1;
 
 public class BaseRxBusActivity extends BaseActivity {
     private Subscription mSubscription;
-    private boolean resetEvent = true;
+    private boolean resetEvent = false;
 
     private int unSub = ActivityRxEvent.DESTROY;
 

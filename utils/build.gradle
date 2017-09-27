@@ -60,6 +60,6 @@ build.doLast {
         from('build/outputs/aar')
         into('build/outputs/aar')
 //        include('utils-release.aar')
-        rename('utils-release.aar', 'utils-app-rx-1.0.0.aar')
+        rename('utils-release.aar', 'utils-app-rx-1.0.1.aar')
     }
 }

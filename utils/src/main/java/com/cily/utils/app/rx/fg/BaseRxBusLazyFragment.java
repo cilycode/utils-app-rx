@@ -21,7 +21,7 @@ import rx.functions.Action1;
 
 public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     private Subscription mSubscription;
-    private boolean resetEvent = true;
+    private boolean resetEvent = false;
     private int unSub = FragmentRxEvent.DESTROY;
 
     private void initRxBus(){
