@@ -40,8 +40,9 @@ public class OkHttpUtils {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .addInterceptor(new HeaderInterceptor())
-                .writeTimeout(45, TimeUnit.SECONDS)
-                .readTimeout(45, TimeUnit.SECONDS);
+                .connectTimeout(timeOutConn, TimeUnit.SECONDS)
+                .writeTimeout(timeOutWrite, TimeUnit.SECONDS)
+                .readTimeout(timeOutRead, TimeUnit.SECONDS);
         if (Init.isDebug()) {
             builder.addInterceptor(mLogInterceptor);
         }
