@@ -17,7 +17,7 @@ import rx.Observable;
 import rx.subjects.BehaviorSubject;
 
 /**
- * user:cily
+ * user:cil
  * time:2017/2/20
  * desc:OkHttp + Retrofit + RxJava
  */
