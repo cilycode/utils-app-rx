@@ -126,7 +126,7 @@ public class BaseOkHttpRxBusFragment extends BaseOkHttpFragment {
     @Override
     public void onPause() {
         super.onPause();
-        L.i(TAG, "<--->onPause");
+        L.v(TAG, "<--->onPause");
         if (getUnSub() == FragmentRxEvent.PAUSE){
             unSubscription();
         }

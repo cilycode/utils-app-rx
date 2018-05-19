@@ -3,10 +3,14 @@ package com.cily.utils.app.rx.okhttp;
 
 import com.cily.utils.app.Init;
 import com.cily.utils.base.StrUtils;
+import com.cily.utils.base.log.LogType;
 import com.cily.utils.log.L;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -25,26 +29,48 @@ public class OkHttpUtils {
     private static long timeOutConn = DEFAULT_TIME_OUT;
     private static long timeOutWrite = DEFAULT_TIME_OUT;
     private static long timeOutRead = DEFAULT_TIME_OUT;
+    private static List<Interceptor> interceptors;
 
-    private OkHttpUtils() {
+    public static void addInterceptor(Interceptor it, boolean resetBefore){
+        if (interceptors == null){
+            interceptors = new ArrayList<>();
+        }
+        if (resetBefore){
+            interceptors.clear();
+        }
+
+        if (it != null){
+            interceptors.add(it);
+        }
+    }
+
+    public static HttpLoggingInterceptor getLogInterceptor(final int logType, HttpLoggingInterceptor.Level level){
         HttpLoggingInterceptor mLogInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                L.d(TAG, StrUtils.join("", message));
+                if (logType > LogType.INFO){
+                    L.d(OkHttpUtils.class.getSimpleName(), message == null ? "" : message);
+                }else if (logType > LogType.WARN && logType <= LogType.INFO){
+                    L.i(OkHttpUtils.class.getSimpleName(), message == null ? "" : message);
+                }else {
+                    L.w(OkHttpUtils.class.getSimpleName(), message == null ? "" : message);
+                }
             }
         });
+        mLogInterceptor.setLevel(level);
+        return mLogInterceptor;
+    }
 
-        if (Init.isDebug()) {
-            mLogInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        }
-
+    private OkHttpUtils() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .addInterceptor(new HeaderInterceptor())
                 .connectTimeout(timeOutConn, TimeUnit.SECONDS)
                 .writeTimeout(timeOutWrite, TimeUnit.SECONDS)
                 .readTimeout(timeOutRead, TimeUnit.SECONDS);
-        if (Init.isDebug()) {
-            builder.addInterceptor(mLogInterceptor);
+
+        if (interceptors != null && interceptors.size() > 0){
+            for (Interceptor it : interceptors){
+                builder.addInterceptor(it);
+            }
         }
         mOkHttpClient = builder.build();
     }
@@ -75,5 +101,4 @@ public class OkHttpUtils {
     public OkHttpClient getOkHttpClient() {
         return mOkHttpClient;
     }
-
 }

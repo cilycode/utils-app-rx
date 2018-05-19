@@ -53,56 +53,56 @@ public class BaseOkHttpFragment extends BaseFragment implements LifecycleProvide
     public void onAttach(android.app.Activity activity) {
         super.onAttach(activity);
         lifecycleSubject.onNext(FragmentEvent.ATTACH);
-        L.i(TAG, "<--->onAttach");
+        L.v(TAG, "<--->onAttach");
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         lifecycleSubject.onNext(FragmentEvent.CREATE);
-        L.i(TAG, "<--->onCreate");
+        L.v(TAG, "<--->onCreate");
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         lifecycleSubject.onNext(FragmentEvent.CREATE_VIEW);
-        L.i(TAG, "<--->onViewCreated");
+        L.v(TAG, "<--->onViewCreated");
     }
 
     @Override
     public void onStart() {
         super.onStart();
         lifecycleSubject.onNext(FragmentEvent.START);
-        L.i(TAG, "<--->onStart");
+        L.v(TAG, "<--->onStart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         lifecycleSubject.onNext(FragmentEvent.RESUME);
-        L.i(TAG, "<--->onResume");
+        L.v(TAG, "<--->onResume");
     }
 
     @Override
     public void onPause() {
         lifecycleSubject.onNext(FragmentEvent.PAUSE);
         super.onPause();
-        L.i(TAG, "<--->onPause");
+        L.v(TAG, "<--->onPause");
     }
 
     @Override
     public void onStop() {
         lifecycleSubject.onNext(FragmentEvent.STOP);
         super.onStop();
-        L.i(TAG, "<--->onStop");
+        L.v(TAG, "<--->onStop");
     }
 
     @Override
     public void onDestroyView() {
         lifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
         super.onDestroyView();
-        L.i(TAG, "<--->onDestroyView");
+        L.v(TAG, "<--->onDestroyView");
 
     }
 
@@ -110,13 +110,13 @@ public class BaseOkHttpFragment extends BaseFragment implements LifecycleProvide
     public void onDestroy() {
         lifecycleSubject.onNext(FragmentEvent.DESTROY);
         super.onDestroy();
-        L.i(TAG, "<--->onDestroy");
+        L.v(TAG, "<--->onDestroy");
     }
 
     @Override
     public void onDetach() {
         lifecycleSubject.onNext(FragmentEvent.DETACH);
         super.onDetach();
-        L.i(TAG, "<--->onDetach");
+        L.v(TAG, "<--->onDetach");
     }
 }

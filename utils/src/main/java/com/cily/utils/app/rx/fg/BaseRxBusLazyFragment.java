@@ -80,7 +80,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onAttach(android.app.Activity activity) {
         super.onAttach(activity);
-        L.i(TAG, "<--->onAttach");
+        L.v(TAG, "<--->onAttach");
         initRxBus();
 
         if (getUnSub() == FragmentRxEvent.ATTACH){
@@ -91,7 +91,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        L.i(TAG, "<--->onCreate");
+        L.v(TAG, "<--->onCreate");
         if (getUnSub() == FragmentRxEvent.CREATE){
             unSubscription();
         }
@@ -100,7 +100,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        L.i(TAG, "<--->onViewCreated");
+        L.v(TAG, "<--->onViewCreated");
         if (getUnSub() == FragmentRxEvent.CREATE_VIEW){
             unSubscription();
         }
@@ -109,7 +109,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onStart() {
         super.onStart();
-        L.i(TAG, "<--->onStart");
+        L.v(TAG, "<--->onStart");
         if (getUnSub() == FragmentRxEvent.START){
             unSubscription();
         }
@@ -118,7 +118,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onResume() {
         super.onResume();
-        L.i(TAG, "<--->onResume");
+        L.v(TAG, "<--->onResume");
         if (getUnSub() == FragmentRxEvent.RESUME){
             unSubscription();
         }
@@ -127,7 +127,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onPause() {
         super.onPause();
-        L.i(TAG, "<--->onPause");
+        L.v(TAG, "<--->onPause");
         if (getUnSub() == FragmentRxEvent.PAUSE){
             unSubscription();
         }
@@ -136,7 +136,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onStop() {
         super.onStop();
-        L.i(TAG, "<--->onStop");
+        L.v(TAG, "<--->onStop");
         if (getUnSub() == FragmentRxEvent.STOP){
             unSubscription();
         }
@@ -145,7 +145,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        L.i(TAG, "<--->onDestroyView");
+        L.v(TAG, "<--->onDestroyView");
 
         if (getUnSub() == FragmentRxEvent.DESTROY_VIEW){
             unSubscription();
@@ -156,7 +156,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        L.i(TAG, "<--->onDestroy");
+        L.v(TAG, "<--->onDestroy");
 
         if (getUnSub() == FragmentRxEvent.DESTROY){
             unSubscription();
@@ -166,7 +166,7 @@ public abstract class BaseRxBusLazyFragment extends BaseLazyFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        L.i(TAG, "<--->onDetach");
+        L.v(TAG, "<--->onDetach");
 
         if (getUnSub() == FragmentRxEvent.DETACH){
             unSubscription();
